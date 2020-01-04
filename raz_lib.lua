@@ -94,7 +94,7 @@ function raz:delete_region(id)
 	if raz.raz_store:get_area(id) == nil then
 		-- Error
 		return 1 -- "No region with this ID! func: raz:delete_region(id)",
-	end 
+	end
 
 	local counter = 0
 	local temp_store = AreaStore() 
@@ -863,7 +863,7 @@ function raz:region_set_attribute(name, id, region_attribute, value, bool)
 	local err_msg = "info: Region with ID: "..id.." modified attribute "..tostring(region_attribute).." with value "..tostring(value)
 	
 	-- ckeck is this ID in AreaStore()?
-	if raz.raz_store:get_area(id) then
+	if type(id) == "number" and raz.raz_store:get_area(id) then
 		-- get region values 
 		pos1,pos2,data = raz:get_region_data_by_id(id)
 		-- check if player is owner of the regions

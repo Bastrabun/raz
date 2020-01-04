@@ -149,11 +149,18 @@ function raz:can_interact(pos, name)
 				can_interact = true
 				return can_interact
 			end
+			
+			-- has privs protection_bypass, region_admin or server
+      if minetest.check_player_privs(name, { protection_bypass = true, region_admin = true, server = true }) then 
+        can_interact = true
+        return can_interact
+      end
+			
 			-- if the player/name is guest he can interact
 			if raz:player_is_guest(name, guests) then --and is_protected == true then
 				can_interact = true
 				return can_interact
-			end	
+			end
 		end -- if regions_id then
 	end -- for regions_id, v in pairs(raz.raz_store:get_areas_for_pos(pos)) do 
 
@@ -188,6 +195,7 @@ function raz:can_interact(pos, name)
 	else
 		can_interact = false
 	end
+	
 	--minetest.log("action", "[" .. raz.modname .. "] raz:can_interact(pos, name) - return = "..tostring(can_interact) )
 	return can_interact, raz:table_to_string(owners)
 		

@@ -863,7 +863,15 @@ function raz:region_set_attribute(name, id, region_attribute, value, bool)
 	local err_msg = "info: Region with ID: "..id.." modified attribute "..tostring(region_attribute).." with value "..tostring(value)
 	
 	-- ckeck is this ID in AreaStore()?
-	if type(id) == "number" and raz.raz_store:get_area(id) then
+	
+	local id = id or nil
+	
+	if type(id) ~= "number" then
+    id = tonumber(id)
+    if not id then return 2 end
+	end
+
+	if raz.raz_store:get_area(id) then
 		-- get region values 
 		pos1,pos2,data = raz:get_region_data_by_id(id)
 		-- check if player is owner of the regions
